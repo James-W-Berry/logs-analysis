@@ -1,8 +1,10 @@
 Logs Analytics
 =============
 Dependencies
++ [Python 2](https://www.python.org/downloads/release/python-2712/)
 + [VirtualBox](https://www.virtualbox.org/wiki/Download_Old_Builds_5_1)
 + [Vagrant](https://www.vagrantup.com/downloads.html)
++ [News data](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip)
 
 
 ## Project Setup
@@ -12,7 +14,7 @@ $ cd VM/vagrant
 $ vagrant up
 $ vagrant ssh
 ```
-After connecting to the Vagrant VM, the PostgreSQL database server will already be starting. Use the psql command line tool to populate the database with the provided data.
+After connecting to the Vagrant VM, the PostgreSQL database server will already be starting. Use the psql command line tool to populate the database with the [provided data](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip).
 ```sh
 $ cd vagrant
 $ psql -d news -f newsdata.sql
