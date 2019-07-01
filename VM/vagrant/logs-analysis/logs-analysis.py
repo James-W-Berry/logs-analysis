@@ -56,7 +56,8 @@ def get_error_days():
     c = db.cursor()
     c.execute(
         """
-            select error_requests.date, error_requests, all_requests
+            select error_requests.date, cast(error_requests as float) /
+            cast(all_requests as float) * 100 as error_percent
                 from error_requests, all_requests
                 where error_requests.date = all_requests.date
                 and cast(error_requests as float) /
@@ -67,11 +68,10 @@ def get_error_days():
     output_file = open("program-output.txt", "a+")
     output_file.write('\r\nDays with more than 1% HTTP request errors:\r\n')
     for row in result:
-        error_percentage = float(row[1]) / float(row[2]) * 100
         error_date = datetime.datetime.strptime(str(row[0]), '%Y-%m-%d') \
             .strftime('%B %d, %Y')
         output_file.write('%s - %0.1f%% errors\r\n'
-                          % (error_date,  error_percentage))
+                          % (error_date,  row[1]))
     output_file.close()
     db.close()
 
